@@ -1,4 +1,4 @@
-# Lonely - Plymouth Theme
+# Lonely - A Plymouth Theme
 
 A custom, clean, and dark boot animation theme for Plymouth.
 It features a 10-frame PNG sequence throbber, a rounded-corner progress bar, and a pulsing "Loading..." text effect.
@@ -11,8 +11,16 @@ It features a 10-frame PNG sequence throbber, a rounded-corner progress bar, and
 - **Pulse Effect:** Text gently fades in and out using a sine-wave function.
 - **Smart Centering:** Automatically centers on any screen resolution.
 - **Clean Exit:** Smooth fade-out transition when boot completes.
+- **It's cute~✨️**
 
 ## Installation
+
+### Install from the AUR! :D
+https://aur.archlinux.org/packages/plymouth-theme-lonely-git
+```bash
+paru -S plymouth-theme-lonely-git
+```
+## Manually for other distros
 
 ### 1. Download the Theme
 Clone this repository or download the files.
@@ -63,3 +71,7 @@ sudo nano /usr/share/plymouth/themes/lonely/lonely.script
 - **Text:** Search for Image.Text("Loading Antarcsys..." to change the displayed text.
 
 - **Fonts:** If the text doesn't appear, you can force a font by changing the text line to: Image.Text("...", 1, 1, 1, "Sans", 20);
+
+
+
+*i can hear the music just looking at her...* 🍷
