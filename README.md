@@ -1,6 +1,6 @@
-# Lonely Plymouth Theme
+# Lonely - Plymouth Theme
 
-A custom, clean, and dark boot animation theme for Arch Linux.
+A custom, clean, and dark boot animation theme for Plymouth.
 It features a 10-frame PNG sequence throbber, a rounded-corner progress bar, and a pulsing "Loading..." text effect.
 
 ![Preview](source.gif)
