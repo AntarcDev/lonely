@@ -18,7 +18,7 @@ It features a 10-frame PNG sequence throbber, a rounded-corner progress bar, and
 Clone this repository or download the files.
 
 ```bash
-git clone [https://github.com/AntarcDev/lonely.git](https://github.com/AntarcDev/lonely.git)
+git clone https://github.com/AntarcDev/lonely.git
 cd lonely
 ```
 ### 2. Copy to Plymouth Directory
