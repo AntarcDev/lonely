@@ -1,0 +1,120 @@
+## Author: Antarc
+## GitHub: https://github.com/AntarcDev
+## ~lonely, lonely. ~i guess im lonely
+## pls enjoy!!!
+
+// ------------------------------------------
+// 1. SETUP
+// ------------------------------------------
+Window.SetBackgroundTopColor(0, 0, 0);
+Window.SetBackgroundBottomColor(0, 0, 0);
+
+// Load Animation Images
+for (i = 0; i < 10; i++)
+  anim_images[i] = Image("frame_" + i + ".png");
+
+anim_sprite = Sprite();
+
+// Center Animation
+anim_sprite.SetX(Window.GetWidth() / 2 - anim_images[0].GetWidth() / 2);
+anim_sprite.SetY(Window.GetHeight() / 2 - anim_images[0].GetHeight() / 2);
+
+// Load Text
+text_image = Image.Text("Loading Antarcsys...", 1, 1, 1);
+text_sprite = Sprite(text_image);
+
+// Center Text (Below animation)
+text_sprite.SetX(Window.GetWidth() / 2 - text_image.GetWidth() / 2);
+text_sprite.SetY(anim_sprite.GetY() + anim_images[0].GetHeight() + 20);
+
+// Load Progress Bar
+box_image = Image("progress_box.png");
+bar_image = Image("progress_bar.png");
+
+box_sprite = Sprite(box_image);
+bar_sprite = Sprite(); 
+
+// Center Box (Below Text)
+box_x = Window.GetWidth() / 2 - box_image.GetWidth() / 2;
+box_y = text_sprite.GetY() + text_image.GetHeight() + 20;
+box_sprite.SetX(box_x);
+box_sprite.SetY(box_y);
+
+// Center Bar (Inside Box)
+bar_sprite.SetX(box_x);
+bar_sprite.SetY(box_y);
+
+// ------------------------------------------
+// 2. STATE VARIABLES
+// ------------------------------------------
+status = "playing"; // Can be "playing" or "quitting"
+master_opacity = 1.0;
+progress_counter = 0;
+
+// ------------------------------------------
+// 3. MAIN LOOP (REFRESH)
+// ------------------------------------------
+fun refresh_callback ()
+  {
+    // A. PLAYING STATE
+    if (status == "playing")
+      {
+        // 1. Throbber Animation
+        anim_sprite.SetImage(anim_images[Math.Int(progress_counter) % 10]);
+        progress_counter += 0.2;
+
+        // 2. Text Pulse (Sine Wave)
+        // Oscillates opacity between 0.3 and 1.0
+        // We use progress_counter as the time variable
+        pulse_opacity = 0.65 + 0.35 * Math.Sin(progress_counter * 0.1);
+        text_sprite.SetOpacity(pulse_opacity);
+      }
+    
+    // B. QUITTING STATE (FADE OUT)
+    else 
+      {
+        // Decrease global opacity
+        master_opacity -= 0.04; // Adjust this for fade speed (lower = slower)
+        
+        // Clamp it to 0 so it doesn't go negative
+        if (master_opacity < 0) master_opacity = 0;
+
+        // Apply new opacity to all sprites
+        anim_sprite.SetOpacity(master_opacity);
+        text_sprite.SetOpacity(master_opacity);
+        box_sprite.SetOpacity(master_opacity);
+        bar_sprite.SetOpacity(master_opacity);
+      }
+  }
+
+Plymouth.SetRefreshFunction(refresh_callback);
+
+// ------------------------------------------
+// 4. BOOT PROGRESS HANDLER
+// ------------------------------------------
+fun boot_progress_callback (duration, progress)
+  {
+    // Only update bar if we are NOT currently fading out
+    if (status == "playing")
+      {
+        current_width = Math.Int(bar_image.GetWidth() * progress);
+        if (current_width > 0)
+          {
+            displayed_bar = bar_image.Crop(0, 0, current_width, bar_image.GetHeight());
+            bar_sprite.SetImage(displayed_bar);
+          }
+      }
+  }
+
+Plymouth.SetBootProgressFunction(boot_progress_callback);
+
+// ------------------------------------------
+// 5. QUIT HANDLER
+// ------------------------------------------
+fun quit_callback ()
+{
+  // Instead of hiding immediately, we switch state to trigger the fade out loop
+  status = "quitting";
+}
+
+Plymouth.SetQuitFunction(quit_callback);

@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Lonely_Lonely
+Description=I guess I'm lonely
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/lonely
+ScriptFile=/usr/share/plymouth/themes/lonely/lonely.script
